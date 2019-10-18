@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Intro to JavaScript: Looping and Looping and Looping</title>
+  <script
+          src="https://code.jquery.com/jquery-3.3.1.js"
+          integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+  <link rel="stylesheet" href="css/style1.css">
+  <div class="pageTitle">
+      <span class="pageTitleText">Looping and Looping and Looping</span>
+      <button class="newUser" onclick="return clearEverything();">New user? Click here</button>
+      <button class="sideBar" onclick="expandSideBar()">&#9776;</button>
+  </div>
+  <div id="sideBarItems" >
+      <button class="sideBarClose" onclick="closeSideBar()">&#10006;</button>
+      <a class="pageLink" onclick="deleteItem('page4'); deleteItem('page3'); deleteItem('page2'); deleteItem('page1'); window.location.href='index.html'">Lesson 1: Getting Started</a>
+    </div>
+    <script>
+    function expandSideBar() {
+        document.getElementById("sideBarItems").style.width = "250px";
+      }
+      function closeSideBar() {
+        document.getElementById("sideBarItems").style.width = "0px";
+      }
+      </script>
+</head>
+<body>
+  <script>
+    $(document).ready(function () {
+      if (localStorage['quiz4'] !== undefined) {
+        var $nextButtonAppend = $('<input type="button" value="Next" id="nextButton" onclick="pageFourNextButtonClick(); window.location.href=\'congrats.html\'">');
+        $nextButtonAppend.appendTo('.buttonContainer');
+      }
+    });
+     // append to sidebar the "unlocked" pages
+     $(document).ready( function () {
+      var $secondSideItem = ("<a class=\"pageLin\" onclick=\"deleteItem('page4'); deleteItem('page3'); deleteItem('page2'); createItem('page1', 'done'); window.location.href='lesson2.html'\">Lesson 2: Numbers</a>");
+      var $thirdSideItem = ("<a class=\"pageLink\" onclick=\"deleteItem('page4'); deleteItem('page3'); createItem('page2', 'done'); createItem('page1', 'done'); window.location.href='lesson3.html'\">Lesson 3: If Statements</a>");
+      var $fourthSideItem = ("<a class=\"pageLink\" onclick=\"deleteItem('page4'); createItem('page3', 'done'); createItem('page2', 'done'); createItem('page1', 'done'); window.location.href='lesson4.html'\">Lesson 4: Loops</a>");
+      if (keyExists('quiz1')) {
+        $($secondSideItem).appendTo('#sideBarItems');
+      }
+      if (keyExists('quiz2')) {
+        $($thirdSideItem).appendTo('#sideBarItems');
+      }
+      if (keyExists('quiz3a') && keyExists('quiz3b')) {
+        $($fourthSideItem).appendTo('#sideBarItems');
+      }
+    });
+  </script>
+<div class="lessonTitle">Lesson 4: Loops</div>
+
+  <div class="outerWrapper">
+      <div class="lessonInfo">
+        <p>For our final lesson, we will introduce you to loops. Loops can allow thousands of lines of code to be reduced down
+          to only a few lines. There are a few types of loops, but for now, we will focus on the <b><u>For Loop</u></b>.
+        </p>
+        <p>&nbsp;</p>
+        <p>A basic For Loop is structured as follows:</p>
+        <p>for (where to start the loop; when to end the loop; size of increment)</p>
+        <p>&nbsp;</p>
+        <p>Let's break this down a little. We first have to decide where we want to start the loop. To do this, we introduce
+          a variable and assign it some value, let's say 0. Then, we need to decide when the loop should stop looping. That can be a
+          number, and it can also be a variable. For example, your loop could start at 0 and end whenever the 
+          loop reaches the end of a list,and if you don't know how long that list is, then you may consider using the 
+          length of that list as your endpoint.</p>
+          <p>Now, we move onto the incrementor. Depending on the application of your loop, the incrementor can be a number or a
+            variable. For now, let's leave the incrementor at 1, which is its most widely used value.</p>
+          <p>The typical incrementor constructor is "+=", which means you are adding <i>and</i> re-defining 
+          the variable to whatever the sum is. For example, var x = 1. If you do, x += 1, then x = 2. Then if you do x += 10, x will be
+          12! This is useful in loops to increment up by a set value on each iteration of the loop. Let's watch one run! What numbers
+          do you think will be printed out from the below?</p>
+      </div>
+      <div class="replHolder">
+          <iframe class="lessonrepl" frameborder="0" src="https://repl.it/@SamLawson/StupendousPoshBudgetrange?lite=true"></iframe>
+      </div>
+      <div class="lessonInfo">
+        <p>We ran the "console.log();" function on the variable itself (i), so we can watch how i gets transformed over the course of
+          the loop.</p>
+          <p>Quiz time! How many times will "Hello" be printed out using the below code?</p>
+          <p>for (var i = 0; i &#60;= 25; i += 1) {</p>
+            <p>&nbsp;&nbsp;&nbsp;console.log("Hello"); </p>
+            <p>&nbsp;&nbsp;&nbsp;}</p>
+      </div>
+      <div class="popQuizContainer">
+          <input class="quizInput" id="lessonFourPopQuizInput" onkeydown="if (event.keyCode === 13) {popQuizFourTest()}"> 
+          <button class="submitButton" type="button" onclick="popQuizFourTest()">Submit</button>
+          <div class="quizResult"></div>
+        </div>
+  
+  </div>
+
+  <script>
+      function popQuizFourTest() {
+        var $nextButtonAppend = $('<input type="button" value="Next" id="nextButton" onclick="pageFourNextButtonClick(); window.location.href=\'congrats.html\'">');
+     
+        var popQuizFourInput1 = $('#lessonFourPopQuizInput').val().toString();
+        var popQuizFourAnswer1 = "26";
+
+          // if user passes the pop quiz, the 'pass' status is saved in the localStorage.
+          if ((popQuizFourInput1 === popQuizFourAnswer1)) {
+            $('.quizResult').html('Excellent! Press the "Next" button below to continue.');
+            // even if the user clicks "Submit" multiple times, the next button will still only appear once
+            if (!keyExists('quiz4')) {
+            $nextButtonAppend.appendTo('.buttonContainer');
+            }
+            createItem('quiz4', 'pass');
+          } else {
+            $('.quizResult').html('Not quite right, try again. Remember, we are starting at zero, not one!');
+          }
+        };
+  
+        function pageFourNextButtonClick() {
+          createItem('page4', 'done');
+        }
+
+        function pageFourPreviousButtonClick() {
+          deleteItem('page4');
+        }
+      </script>
+
+</div>
+<div class="buttonContainer">
+  <input type="button" value="Previous" id="previousButton" type="submit" onclick="pageFourPreviousButtonClick(); window.location.href='lesson3.html'"> <!-- need to do the onlicks -->
+  <!-- <button id="nextButton" type="submit">Next</button> -->
+</div>
+
+  <script src="app/app.js"></script>
+</body>
+</html>

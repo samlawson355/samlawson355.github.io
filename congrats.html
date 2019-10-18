@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Intro to JavaScript: Congratulations!</title>
+  <script
+          src="https://code.jquery.com/jquery-3.3.1.js"
+          integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+  <link rel="stylesheet" href="css/style1.css">
+  <div class="pageTitle">
+      <span class="pageTitleText">You are the next Zuck!</span>
+      <button class="newUser" onclick="return clearEverything();">New user? Click here</button>
+      <button class="sideBar" onclick="expandSideBar()">&#9776;</button>
+  </div>
+  <div id="sideBarItems" >
+      <button class="sideBarClose" onclick="closeSideBar()">&#10006;</button>
+      <a class="pageLink" onclick="deleteItem('page4'); deleteItem('page3'); deleteItem('page2'); deleteItem('page1'); window.location.href='index.html'">Lesson 1: Getting Started</a>
+    </div>
+    <script>
+    function expandSideBar() {
+        document.getElementById("sideBarItems").style.width = "250px";
+      }
+      function closeSideBar() {
+        document.getElementById("sideBarItems").style.width = "0px";
+      }
+      </script>
+</head>
+<body>
+  <script>
+     // append to sidebar the "unlocked" pages
+     $(document).ready( function () {
+      var $secondSideItem = ("<a class=\"pageLin\" onclick=\"deleteItem('page4'); deleteItem('page3'); deleteItem('page2'); createItem('page1', 'done'); window.location.href='lesson2.html'\">Lesson 2: Numbers</a>");
+      var $thirdSideItem = ("<a class=\"pageLink\" onclick=\"deleteItem('page4'); deleteItem('page3'); createItem('page2', 'done'); createItem('page1', 'done'); window.location.href='lesson3.html'\">Lesson 3: If Statements</a>");
+      var $fourthSideItem = ("<a class=\"pageLink\" onclick=\"deleteItem('page4'); createItem('page3', 'done'); createItem('page2', 'done'); createItem('page1', 'done'); window.location.href='lesson4.html'\">Lesson 4: Loops</a>");
+      if (keyExists('quiz1')) {
+        $($secondSideItem).appendTo('#sideBarItems');
+      }
+      if (keyExists('quiz2')) {
+        $($thirdSideItem).appendTo('#sideBarItems');
+      }
+      if (keyExists('quiz3a') && keyExists('quiz3b')) {
+        $($fourthSideItem).appendTo('#sideBarItems');
+      }
+    });
+    </script>
+    <div class="lessonTitle">Play again?</div>
+    <div class="popQuizContainer">
+    <button class="playAgainButton" type="button" onclick="clearEverything()">Play again!</button>
+  </div>
+    <script src="app/app.js"></script>
+    </body>
+</html>

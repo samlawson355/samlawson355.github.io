@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <title>Intro to JavaScript: What if?</title>
+    <script 
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" 
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+    <link rel="stylesheet" href="css/style1.css">
+    <div class="pageTitle">
+        <span class="pageTitleText">What If?</span>
+        <button class="newUser" onclick="return clearEverything();">New user? Click here</button>
+        <button class="sideBar" onclick="expandSideBar()">&#9776;</button>
+    </div>
+    <div id="sideBarItems" >
+        <button class="sideBarClose" onclick="closeSideBar()">&#10006;</button>
+        <a class="pageLink" onclick="deleteItem('page4'); deleteItem('page3'); deleteItem('page2'); deleteItem('page1'); window.location.href='index.html'">Lesson 1: Getting Started</a>
+      </div>
+      <script>
+      
+      function expandSideBar() {
+          document.getElementById("sideBarItems").style.width = "250px";
+        }
+        function closeSideBar() {
+          document.getElementById("sideBarItems").style.width = "0px";
+        }
+        </script>
+</head>
+
+<body>
+  <script>
+    $(document).ready(function () {
+      if (localStorage['quiz3'] !== undefined) {
+        var $nextButtonAppend = $('<input type="button" value="Next" id="nextButton" onclick="pageThreeNextButtonClick(); window.location.href=\'lesson4.html\'">');
+        $nextButtonAppend.appendTo('.buttonContainer');
+      }
+    });
+
+    // append to sidebar the "unlocked" pages
+    $(document).ready( function () {
+      var $secondSideItem = ("<a class=\"pageLin\" onclick=\"deleteItem('page4'); deleteItem('page3'); deleteItem('page2'); createItem('page1', 'done'); window.location.href='lesson2.html'\">Lesson 2: Numbers</a>");
+      var $thirdSideItem = ("<a class=\"pageLink\" onclick=\"deleteItem('page4'); deleteItem('page3'); createItem('page2', 'done'); createItem('page1', 'done'); window.location.href='lesson3.html'\">Lesson 3: If Statements</a>");
+      var $fourthSideItem = ("<a class=\"pageLink\" onclick=\"deleteItem('page4'); createItem('page3', 'done'); createItem('page2', 'done'); createItem('page1', 'done'); window.location.href='lesson4.html'\">Lesson 4: Loops</a>");
+      if (keyExists('quiz1')) {
+        $($secondSideItem).appendTo('#sideBarItems');
+      }
+      if (keyExists('quiz2')) {
+        $($thirdSideItem).appendTo('#sideBarItems');
+      }
+      if (keyExists('quiz3a') && keyExists('quiz3b')) {
+        $($fourthSideItem).appendTo('#sideBarItems');
+      }
+    });
+    </script>
+  <div class="lessonTitle">Lesson 3: If Statements</div>
+
+<div class="outerWrapper">
+      
+    <div class="lessonInfo">
+    <p>Let's get into <b><u>If Statements</u></b>. An if statement (sometimes called a conditional or a logical operator) 
+      can be the most crucial part of any code. It can check one or more parameters for information, 
+      and depending on the information that those parameters contain, the if statement can 
+      direct all sorts of things to happen. Imagine if you wanted something to happen in your program but only if other 
+      parameters are met. This is where an if statement comes into play.</p>
+    <p>One of the key elements of an if statement is that an if statement will <i>always</i> evaluate to a boolean result (true/false), 
+      which you will find extremely useful in writing code.</p>
+      <p>Let's think of an example. Imagine you want to add two numbers togther, but <i>only</i> if one of the numbers is 5. So if 
+      you have input of 7 and 19, the function would not run. If the input is 6 and 5, then the function would run. This is 
+      a fairly basic (and slightly useless) example, but it gets the point across.</p>
+      <p>Quick quiz: What are the two possible results of an if statement?</p>
+      <input class="quizInput" id="thirdPageAnswer1a">
+      <p>and</p>
+      <input class="quizInput" id="thirdPageAnswer2a">
+      
+  </div>
+  <div class="popQuizContainer">
+      <!-- <input class="quizInput" id="lessonTwoPopQuizInput" onkeydown="if (event.keyCode === 13) {popQuizTwoTest()}"> -->
+      <button class="submitButton" type="button" onclick="popQuizThreeTestA()">Submit</button>
+      <div class="quizResult" id="page3quiz1"></div>
+    </div>
+    <div class="lessonInfo">
+    <p>If statements are constructed as follows:</p>
+    <p>if (some parameter is true) {</p>
+    <p>&nbsp;&nbsp;&nbsp;run this code;</p>
+    <p>&nbsp;&nbsp;&nbsp;}</p>
+    <p>&nbsp;</p>
+    <p>So, in our example above, the code would translate to something like this...</p>
+    <p>if (one of the inputs is 5) {</p>
+    <p>&nbsp;&nbsp;&nbsp;add the inputs; </p>
+    <p>&nbsp;&nbsp;&nbsp;}</p>
+    <p>&nbsp;</p>
+    <p>Let's watch an example in action. First, we will introduce a variable. The single = is for <b>setting a value</b>, 
+      while the triple === is for <b>checking equality</b>. You can see that we are first <i>setting</i> x to be 10, and then
+    we are <i>checking</i> if x is equal to 10. Hit the green play button to watch it run!</p>
+    </div>
+    <div class="replHolder">
+        <iframe class="lessonrepl" frameborder="0" src="https://repl.it/@SamLawson/DisguisedIncomparableLoopfission?lite=true"></iframe>
+    </div>
+    <div class="lessonInfo">
+      <p>Let's throw some variables into the mix. Variables are where you can store data for later use. You can also change variables.
+        Let's say you had a variable with a value of 50 (var x = 50). Now, let's say you used that variable throughout your code in
+        potentially hundreds or even thousands of places! If you did not have a variable, you'd have to type '50' each time.
+        Not the biggest deal, it's just one more character than it would be to type 'x', BUT what happens if you suddenly need to change that
+        value to be 40 everywhere it's used? If you did not use a variable, you'd have to update in hundreds, if not thousands, of places
+        with the possibility of missing some. If you <i>did</i> use a variable, you just need to change it in one place!<p>
+        
+        <p>Let's look at an example. What do you think the below will print out? Think about it before hitting the play button.</p>
+    </div>
+    <div class="replHolder">
+        <iframe class="lessonrepl" frameborder="0" src="https://repl.it/@SamLawson/JaggedImpressiveSets?lite=true"></iframe>
+    </div>
+    <div class="lessonInfo">
+    <p>Quiz time! Try establishing a variable below. Remember, try to name your variables something descriptive so you always
+      know what information is contained within the variable.
+    </p>
+    <div class="popQuizContainer">
+    <input class="quizInput" id="thirdPageAnswer1b" onkeydown="if (event.keyCode === 13) {popQuizThreeTestB()}">
+    <button class="submitButton" type="button" onclick="popQuizThreeTestB()">Submit</button>
+    <div class="quizResult" id="page3quiz2"></div>
+    </div>
+    </div>
+    
+</div>
+
+
+      <script>
+        // this is the FIRST quiz on page three, and it will NOT establish a next button
+          function popQuizThreeTestA() {
+           var $nextButtonAppend = $('<input type="button" value="Next" id="nextButton" onclick="pageThreeNextButtonClick(); window.location.href=\'lesson4.html\'">');
+         
+            var popQuizThreeInput1a = $('#thirdPageAnswer1a').val().toString().toLowerCase();
+            var popQuizThreeAnswer1a = "true";
+
+            var popQuizThreeInput2a = $('#thirdPageAnswer2a').val().toString().toLowerCase();
+            var popQuizThreeAnswer2a = "false";
+      
+              // if user passes the pop quiz, the 'pass' status is saved in the localStorage.
+              if (((popQuizThreeInput1a === popQuizThreeAnswer1a) && (popQuizThreeInput2a === popQuizThreeAnswer2a)) || ((popQuizThreeInput1a === popQuizThreeAnswer2a) && (popQuizThreeInput2a === popQuizThreeAnswer1a)))  {
+                //$('.quizResult').html('Excellent! Press the "Next" button below to continue.');
+                $('#page3quiz1').html('Great job!');
+                // even if the user clicks "Submit" multiple times, the next button will still only appear once
+                if (!keyExists('quiz3a') && keyExists('quiz3b')) {
+                $nextButtonAppend.appendTo('.buttonContainer');
+                }
+                createItem('quiz3a', 'pass');
+              } else {
+                $('#page3quiz1').html('Not quite right, try again.');
+              }
+            };
+            // this is the SECOND quiz on page three, and it WILL establish a next button
+            function popQuizThreeTestB() {
+            var $nextButtonAppend = $('<input type="button" value="Next" id="nextButton" onclick="pageThreeNextButtonClick(); window.location.href=\'lesson4.html\'">');
+         
+            var popQuizThreeInput1b = $('#thirdPageAnswer1b').val().toString().toLowerCase();
+            var popQuizThreeAnswer1b = popQuizThreeInput1b.indexOf("var") > -1;
+            var popQuizThreeAnswer1b2 = popQuizThreeInput1b.indexOf("=") > -1;
+      
+              // if user passes the pop quiz, the 'pass' status is saved in the localStorage.
+              if (popQuizThreeAnswer1b && popQuizThreeAnswer1b2) {
+                $('#page3quiz2').html('Excellent! Press the "Next" button below to continue.');
+                // even if the user clicks "Submit" multiple times, the next button will still only appear once
+                if (!keyExists('quiz3b') && keyExists('quiz3a')) {
+                $nextButtonAppend.appendTo('.buttonContainer');
+                }
+                createItem('quiz3b', 'pass');
+              } else {
+                $('#page3quiz2').html('Not quite right, try again.');
+              }
+            };
+
+      
+            function pageThreeNextButtonClick() {
+              createItem('page3', 'done');
+            }
+
+            function pageThreePreviousButtonClick() {
+              deleteItem('page3');
+            }
+          </script>
+
+  </div>
+  <div class="buttonContainer">
+      <input type="button" value="Previous" id="previousButton" type="submit" onclick="pageThreePreviousButtonClick(); window.location.href='lesson2.html'"> <!-- need to do the onlicks -->
+      <!-- <button id="nextButton" type="submit">Next</button> -->
+    </div>
+    <script src="app/app.js"></script>
+  </body>
+  </html>
